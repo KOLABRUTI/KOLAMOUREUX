@@ -1,0 +1,202 @@
+﻿<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Saint Valentin 💖</title>
+
+<style>
+body {
+    margin: 0;
+    height: 100vh;
+    background: linear-gradient(135deg, #ffafbd, #ffc3a0);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: Arial, sans-serif;
+}
+
+/* Carte blanche */
+.card {
+    background: white;
+    padding: 40px 30px;
+    border-radius: 25px;
+    width: 90%;
+    max-width: 380px;
+    text-align: center;
+    box-shadow: 0 25px 50px rgba(0,0,0,0.25);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Texte */
+h1 {
+    font-size: 20px;
+    line-height: 1.4;
+    margin-bottom: 35px;
+    max-width: 300px;
+}
+
+/* Zone des boutons */
+.buttons {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    max-width: 260px;
+    margin: 0 auto;
+    position: relative;
+}
+
+/* Zones fixes pour la symétrie */
+.btn-zone {
+    width: 120px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Boutons */
+button {
+    padding: 12px 28px;
+    font-size: 16px;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    min-width: 100px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 15px rgba(0,0,0,0.2);
+}
+
+/* Bouton OUI */
+#yes {
+    background: #ff4d6d;
+    color: white;
+}
+
+/* Bouton NON (peut fuir) */
+#no {
+    background: #e0e0e0;
+    position: relative;
+}
+
+/* Message */
+.message {
+    margin-top: 25px;
+    font-size: 18px;
+    min-height: 48px;
+}
+
+/* Overlay final */
+.overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.6);
+    display: none;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Popup */
+.popup {
+    background: white;
+    padding: 35px;
+    border-radius: 30px;
+    text-align: center;
+    max-width: 320px;
+    animation: pop 0.4s ease;
+}
+
+@keyframes pop {
+    from {
+        transform: scale(0.6);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+/* Cœur */
+.heart {
+    font-size: 50px;
+    margin-top: 15px;
+    animation: beat 1s infinite;
+}
+
+@keyframes beat {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.3); }
+}
+</style>
+</head>
+
+<body>
+
+<div class="card">
+    <h1 id="question"></h1>
+
+    <div class="buttons">
+        <button id="yes">Oui 💖</button>
+        <button id="no">Non 😈</button>
+    </div>
+
+    <div class="message" id="message"></div>
+</div>
+
+<div class="overlay" id="overlay">
+    <div class="popup">
+        <h2>Rendez-vous à 19h ce soir à la maison</h2>
+        <div class="heart">❤️</div>
+    </div>
+</div>
+
+<audio id="music" loop>
+    <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_8c1d77a1c5.mp3">
+</audio>
+
+<script>
+const prenom = "Ma Lulu";
+
+const question = document.getElementById("question");
+const noBtn = document.getElementById("no");
+const yesBtn = document.getElementById("yes");
+const message = document.getElementById("message");
+const overlay = document.getElementById("overlay");
+const music = document.getElementById("music");
+
+question.innerHTML = `Veux-tu être ma valentine pour cette année encore une fois ${prenom} ? 💘`;
+
+let fleeCount = 0;
+
+noBtn.addEventListener("mouseenter", () => {
+    if (fleeCount < 30) {
+        const x = Math.random() * 220;
+        const y = Math.random() * 60;
+        noBtn.style.left = x + "px";
+        noBtn.style.top = y + "px";
+        noBtn.style.transform = `rotate(${Math.random() * 360}deg)`;
+        fleeCount++;
+    }
+});
+
+noBtn.addEventListener("click", () => {
+    message.innerHTML = "D’accord… tu l’auras voulu 😈<br><strong>tu pu</strong>";
+});
+
+yesBtn.addEventListener("click", () => {
+    message.innerHTML = "Super chouette 🥰 on va s’amuser !";
+    music.play();
+    setTimeout(() => {
+        overlay.style.display = "flex";
+    }, 900);
+});
+</script>
+
+</body>
+</html>
